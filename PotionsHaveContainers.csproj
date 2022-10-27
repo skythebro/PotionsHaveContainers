@@ -1,0 +1,456 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>PotionsHaveContainers</AssemblyName>
+    <Description>My first plugin</Description>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-*" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+    <PackageReference Include="System.Net.Http.Json" Version="7.0.0-rc.2.22472.3" />
+    <PackageReference Include="Wetstone" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\com.rlabrecque.steamworks.net.dll</HintPath>
+    </Reference>
+    <Reference Include="com.stunlock.console">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\com.stunlock.console.dll</HintPath>
+    </Reference>
+    <Reference Include="com.stunlock.metrics">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\com.stunlock.metrics.dll</HintPath>
+    </Reference>
+    <Reference Include="com.stunlock.network">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\com.stunlock.network.dll</HintPath>
+    </Reference>
+    <Reference Include="com.stunlock.network.lidgren">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\com.stunlock.network.lidgren.dll</HintPath>
+    </Reference>
+    <Reference Include="com.stunlock.network.steam">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\com.stunlock.network.steam.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppMono.Security">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppMono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Configuration">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Data">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Numerics">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Runtime.Serialization">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Xml">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Xml.Linq">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Il2CppSystem.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="MagicaCloth">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\MagicaCloth.dll</HintPath>
+    </Reference>
+    <Reference Include="Malee.ReorderableList">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Malee.ReorderableList.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Behaviours">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Behaviours.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Camera">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Camera.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.CastleBuilding.Systems">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.CastleBuilding.Systems.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.CodeGeneration">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.CodeGeneration.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Conversion">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Conversion.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Gameplay.Scripting">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Gameplay.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Gameplay.Systems">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Gameplay.Systems.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.GeneratedNetCode">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.GeneratedNetCode.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.HUD">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.HUD.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Misc.Systems">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Misc.Systems.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Pathfinding">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Pathfinding.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Presentation.Systems">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Presentation.Systems.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Roofs">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Roofs.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.ScriptableSystems">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.ScriptableSystems.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Shared">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Shared.Systems">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Shared.Systems.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectM.Terrain">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\ProjectM.Terrain.dll</HintPath>
+    </Reference>
+    <Reference Include="RCONServerLib">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\RCONServerLib.dll</HintPath>
+    </Reference>
+    <Reference Include="RootMotion">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\RootMotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Sequencer">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Sequencer.dll</HintPath>
+    </Reference>
+    <Reference Include="Stunlock.Core">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Stunlock.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Stunlock.Fmod">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Stunlock.Fmod.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Burst.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections.LowLevel.ILSupport">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Deformations">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Deformations.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities.Hybrid">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Entities.Hybrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Jobs">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Jobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Extensions">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Mathematics.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Extensions.Hybrid">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Mathematics.Extensions.Hybrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Physics">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Physics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Physics.Hybrid">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Physics.Hybrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Properties">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Properties.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rendering.Hybrid">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Rendering.Hybrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Scenes">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Scenes.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Serialization">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Analytics">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Configuration">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Device">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Device.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Environments">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Environments.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Environments.Internal">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Environments.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Internal">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Registration">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Registration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Scheduler">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Scheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Telemetry">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Telemetry.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Threading">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Services.Core.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Transforms">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Transforms.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Transforms.Hybrid">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.Transforms.Hybrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\Unity.VisualEffectGraph.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.AndroidJNIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.DSPGraphModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GIModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.GIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ProfilerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.SubsystemsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.TextCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsNativeModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UIElementsNativeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityCurlModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityCurlModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VirtualTexturingModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.VirtualTexturingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="VivoxUnity">
+      <HintPath>..\..\VRisingDevelopment\Updated Binaries\unhollowed\VivoxUnity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy C:\Users\Jason\Desktop\Development\PotionsHaveContainers\bin\Debug\netstandard2.1\PotionsHaveContainers.dll C:\Users\Jason\Desktop\VRisingDevelopment\VRising_Server\BepInEx\plugins" />
+	</Target>
+</Project>
