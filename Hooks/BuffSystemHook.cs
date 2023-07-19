@@ -1,8 +1,11 @@
-﻿using HarmonyLib;
+﻿using Bloodstone.API;
+using HarmonyLib;
 using PotionsHaveContainers.Systems;
 using ProjectM;
+using System;
 using Unity.Collections;
-namespace PotionsHaveContainers.Shared
+
+namespace PotionsHaveContainers.Hooks
 {
     [HarmonyPatch]
     public static class BuffSystemHook
@@ -11,18 +14,16 @@ namespace PotionsHaveContainers.Shared
         [HarmonyPrefix]
         private static void OnUpdate(BuffSystem_Spawn_Server __instance)
         {
-            if (!Plugin.IsServer || __instance.__OnUpdate_LambdaJob0_entityQuery == null) { return; }
+            if (!VWorld.IsServer || __instance.__OnUpdate_LambdaJob0_entityQuery.IsEmpty) return;
 
-            if(Plugin._EnableMod)
+            if (!Settings.ENABLE_MOD.Value) return;
+            //var entityManager = __instance.EntityManager;
+
+            var entities = __instance.__OnUpdate_LambdaJob0_entityQuery.ToEntityArray(Allocator.Temp);
+            foreach (var entity in entities)
             {
-                var entityManager = __instance.EntityManager;
-
-                var entities = __instance.__OnUpdate_LambdaJob0_entityQuery.ToEntityArray(Allocator.Temp);
-                foreach (var entity in entities)
-                {
-                    PrefabGUID buffGUID = entityManager.GetComponentData<PrefabGUID>(entity);
-                    ConsumableToContainerSystem.ProcessConsumable(entity, buffGUID);
-                }
+                //PrefabGUID buffGUID = entityManager.GetComponentData<PrefabGUID>(entity);
+                ConsumableToContainerSystem.ProcessConsumable(entity);
             }
         }
     }

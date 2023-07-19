@@ -1,5 +1,33 @@
-# PotionsHaveContainers
-## Potions and flasks will now return their empty counter-part containers. What were we doing before, eating them?
-Place the available .dll file inside of BepInEx\plugins folder to automatically load the mod.
+# 🫗 Potions Have Containers - Gloomrot Update
+forked from [phillipsOG/C2ierce](https://github.com/phillipsOG/PotionsHaveContainers) and updated to Gloomrot.
 
-### Will be updated more in the comming weeks
+## Potions and flasks will now return their empty counter-part containers. What were we doing before, eating them?
+Only works with potions and flasks. Water bottle and Water-filled Canteen don't work.
+If there is a non water related potion I have missed be sure to open an issue on [github](https://github.com/skythebro/PotionsHaveContainers/issues).
+
+## Installation
+Place the _PotionsHaveContainers.dll_ file inside of (Vrising Server)\BepInEx\plugins folder.
+
+## Configurable Values
+```ini
+[Config]
+
+## Enable or Disable PotionsHaveContainers
+# Setting type: Boolean
+# Default value: true
+Enable Mod = true
+
+```
+
+## Developer & credits
+<details>
+
+### V rising modding discord [Discord](https://discord.gg/XY5bNtNm4w)
+### Current Developer
+- `skythebro/skyKDG` - Also known as realsky on discord
+
+### Original Creator & Developers
+- `phillipsOG`
+- `C2ierce`
+
+</details>
