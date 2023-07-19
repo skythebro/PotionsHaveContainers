@@ -2,7 +2,7 @@
 forked from [phillipsOG/C2ierce](https://github.com/phillipsOG/PotionsHaveContainers) and updated to Gloomrot.
 
 ## Potions and flasks will now return their empty counter-part containers. What were we doing before, eating them?
-Only works with potions and flasks. Water bottle and Water-filled Canteen don't work.
+Works with all potions, flasks/Canteens except for the water bottle and water-filled Canteen.
 If there is a non water related potion I have missed be sure to open an issue on [github](https://github.com/skythebro/PotionsHaveContainers/issues).
 
 ## Installation
