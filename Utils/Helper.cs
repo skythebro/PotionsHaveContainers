@@ -1,7 +1,9 @@
-﻿using System;
+﻿
+using System;
 using ProjectM;
 using BepInEx.Logging;
 using Bloodstone.API;
+using Il2CppInterop.Runtime;
 using Unity.Collections;
 using Unity.Entities;
 
