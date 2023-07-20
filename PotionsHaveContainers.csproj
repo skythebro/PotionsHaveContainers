@@ -4,12 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>PotionsHaveContainers</AssemblyName>
     <Description>Returns the potion containers after using them.</Description>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <InformationalVersion>1.1.0+4.Branch.main.Sha.143926a745aa398f53ca0d7133c2bb315ae4c64d</InformationalVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <InformationalVersion>1.2.0+4.Branch.main.Sha.143926a745aa398f53ca0d7133c2bb315ae4c64d</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +19,6 @@
     <PackageReference Include="VRising.Bloodstone" Version="0.1.4" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;C:\Users\bryan\OneDrive - Karel de Grote Hogeschool\programmeren 2\.net\Projects\PotionsHaveContainersFork\bin\Debug\net6.0\PotionsHaveContainers.dll&quot; &quot;G:\SteamLibrary\steamapps\common\VRising\BepInEx\plugins&quot;" />
+    <Exec Command="copy &quot;C:\Users\bryan\OneDrive - Karel de Grote Hogeschool\programmeren 2\.net\Projects\PotionsHaveContainersFork\bin\Debug\net6.0\PotionsHaveContainers.dll&quot; &quot;G:\SteamLibrary\steamapps\common\VRising\BepInEx\Plugins&quot;" />
   </Target>
 </Project>

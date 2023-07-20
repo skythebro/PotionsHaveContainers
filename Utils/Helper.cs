@@ -2,7 +2,6 @@
 using ProjectM;
 using BepInEx.Logging;
 using Bloodstone.API;
-using Unity.Collections;
 using Unity.Entities;
 
 namespace PotionsHaveContainers.Utils

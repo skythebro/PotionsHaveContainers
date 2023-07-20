@@ -2,7 +2,6 @@
 using HarmonyLib;
 using PotionsHaveContainers.Systems;
 using ProjectM;
-using System;
 using Unity.Collections;
 
 namespace PotionsHaveContainers.Hooks
