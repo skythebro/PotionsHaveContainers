@@ -42,7 +42,7 @@ namespace PotionsHaveContainers.Systems
             // -- Fire Resistance Brew -> Empty Canteen
             [new PrefabGUID(970650569)] = new PrefabGUID(-810738866),
 
-            // -- Garlic Fever Antidote -> Empty Canteen
+            // -- Garlic Fever Antidote -> Empty Canteen (seems to be unused and removed from the game in 1.0)
             [new PrefabGUID(-606793991)] = new PrefabGUID(-810738866),
 
             // -- Minor Garlic Resistance Brew -> Empty Canteen
@@ -84,13 +84,19 @@ namespace PotionsHaveContainers.Systems
             // -- Wrangler’s Potion -> Empty Glass Bottle
             [new PrefabGUID(541321301)] = new PrefabGUID(-437611596),
 
-            // -- Extracted Blood Potion -> Empty Glass Bottle
+            // -- Extracted Blood Potion (fakeitem) -> Empty Glass Bottle
             [new PrefabGUID(-1871776321)] = new PrefabGUID(-437611596),
+            
+            // -- Prison potion -> empty glass bottle
+            [new PrefabGUID(828432508)] = new PrefabGUID(-437611596),
 
             // -- Extracted bloodwine (blood merlot) -> Empty Glass Bottle
-            [new PrefabGUID(-1624770558)] = new PrefabGUID(-437611596)
+            [new PrefabGUID(1223264867)] = new PrefabGUID(-437611596),
 
-            // -- Water-filled Crystal Flask -> Empty Crystal Flask (not used in game anymore)
+            // -- spell leech potion T1 (name pending) -> empty glass bottle
+            [new PrefabGUID(-2102469163)] = new PrefabGUID(-437611596),
+            
+            // -- Water-filled Crystal Flask -> Empty Crystal Flask (not used in game anymore, removed in 1.0?)
             //[new PrefabGUID(225917880)] = new PrefabGUID(1675503103)
         };
 
