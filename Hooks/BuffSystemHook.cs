@@ -13,12 +13,12 @@ namespace PotionsHaveContainers.Hooks
         [HarmonyPrefix]
         private static void OnUpdate(BuffSystem_Spawn_Server __instance)
         {
-            if (!VWorld.IsServer || __instance.__OnUpdate_LambdaJob0_entityQuery.IsEmpty) return;
+            if (!VWorld.IsServer || __instance.__query_401358634_0.IsEmpty) return;
 
             if (!Settings.ENABLE_MOD.Value) return;
             //var entityManager = __instance.EntityManager;
 
-            var entities = __instance.__OnUpdate_LambdaJob0_entityQuery.ToEntityArray(Allocator.Temp);
+            var entities = __instance.__query_401358634_0.ToEntityArray(Allocator.Temp);
             foreach (var entity in entities)
             {
                 //PrefabGUID buffGUID = entityManager.GetComponentData<PrefabGUID>(entity);

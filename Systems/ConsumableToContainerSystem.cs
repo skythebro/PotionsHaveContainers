@@ -6,6 +6,7 @@ using System.Threading;
 using BepInEx.Logging;
 using Bloodstone.API;
 using PotionsHaveContainers.Utils;
+using Stunlock.Core;
 using Unity.Entities;
 
 namespace PotionsHaveContainers.Systems
@@ -95,7 +96,7 @@ namespace PotionsHaveContainers.Systems
 
         public static void ProcessAbilityUseEvent(Entity entity)
         {
-            var prefabCollectionSystem = Server.GetExistingSystem<PrefabCollectionSystem>();
+            //var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
             var abEvent =
                 _entityManager.GetComponentDataAOT<AbilityCastStartedEvent>(entity);
             var ability = abEvent.Ability;
@@ -148,7 +149,7 @@ namespace PotionsHaveContainers.Systems
         {
             try
             {
-                var prefabCollectionSystem = Server.GetExistingSystem<PrefabCollectionSystem>();
+                //var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
                 var hasCreator = _entityManager.TryGetComponentData<EntityCreator>(entity, out var entityCreator);
                 var hasOwner = _entityManager.TryGetComponentData<EntityOwner>(entity, out var entityOwner);
                 //_entityManager.TryGetComponentData<PrefabGUID>(entity, out var entityguid);
@@ -203,8 +204,8 @@ namespace PotionsHaveContainers.Systems
         {
             ConsumableToEmptyContainer.Clear();
 
-            var gameDataSystem = Server.GetExistingSystem<ServerScriptMapper>()._GameDataSystem;
-            var prefabCollectionSystem = Server.GetExistingSystem<PrefabCollectionSystem>();
+            var gameDataSystem = Server.GetExistingSystemManaged<ServerScriptMapper>()._GameDataSystem;
+            var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
 
             var duplicateConsumables = new List<PrefabGUID>();
 
