@@ -7,6 +7,7 @@ using BepInEx.Logging;
 using Bloodstone.API;
 using PotionsHaveContainers.Utils;
 using Stunlock.Core;
+using Unity.Collections;
 using Unity.Entities;
 
 namespace PotionsHaveContainers.Systems
@@ -86,7 +87,7 @@ namespace PotionsHaveContainers.Systems
 
             // -- Extracted Blood Potion (fakeitem) -> Empty Glass Bottle
             [new PrefabGUID(-1871776321)] = new PrefabGUID(-437611596),
-            
+
             // -- Prison potion -> empty glass bottle
             [new PrefabGUID(828432508)] = new PrefabGUID(-437611596),
 
@@ -95,25 +96,25 @@ namespace PotionsHaveContainers.Systems
 
             // -- spell leech potion T1 (name pending) -> empty glass bottle
             [new PrefabGUID(-2102469163)] = new PrefabGUID(-437611596),
-            
+
             // -- Water-filled Crystal Flask -> Empty Crystal Flask (not used in game anymore, removed in 1.0?)
             //[new PrefabGUID(225917880)] = new PrefabGUID(1675503103)
         };
 
         public static void ProcessAbilityUseEvent(Entity entity)
         {
-            //var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
+            var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
             var abEvent =
                 _entityManager.GetComponentDataAOT<AbilityCastStartedEvent>(entity);
             var ability = abEvent.Ability;
             var character = abEvent.Character;
             var abilityGroup = abEvent.AbilityGroup;
             _entityManager.TryGetComponentData<PrefabGUID>(ability, out var abilityguid);
-            //_log.LogDebug($"[Ability][{prefabCollectionSystem.PrefabGuidToNameDictionary[abilityguid]}]");
-            //_entityManager.TryGetComponentData<PrefabGUID>(character, out var characterguid);
-            //_log.LogDebug($"[Character][{prefabCollectionSystem.PrefabGuidToNameDictionary[characterguid]}]");
+            _log.LogDebug($"[Ability][{prefabCollectionSystem.PrefabGuidToNameDictionary[abilityguid]}]");
+            _entityManager.TryGetComponentData<PrefabGUID>(character, out var characterguid);
+            _log.LogDebug($"[Character][{prefabCollectionSystem.PrefabGuidToNameDictionary[characterguid]}]");
             _entityManager.TryGetComponentData<PrefabGUID>(abilityGroup, out var abilityGroupguid);
-            //_log.LogDebug($"[AbilityGroup][{prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupguid]}]");
+            _log.LogDebug($"[AbilityGroup][{prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupguid]}]");
 
 
             if (abilityguid != new PrefabGUID(-159878578) && abilityguid != new PrefabGUID(204798150) &&
@@ -122,7 +123,7 @@ namespace PotionsHaveContainers.Systems
                 return;
             }
 
-            //_log.LogWarning($"AbilityGroupId! {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupguid]}");
+            _log.LogWarning($"AbilityGroupId! {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupguid]}");
             if (ConsumableToEmptyContainer.Count == 0)
             {
                 CreateConsumableContainers();
@@ -143,7 +144,8 @@ namespace PotionsHaveContainers.Systems
 
             if (!hasWaterOrBloodReturnData)
             {
-                //_log.LogDebug($"Consumable not found in second dictionary either! {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupguid]}");
+                _log.LogDebug(
+                    $"Consumable not found in second dictionary either! {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupguid]}");
                 return;
             }
 
@@ -155,11 +157,12 @@ namespace PotionsHaveContainers.Systems
         {
             try
             {
-                //var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
+                var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
                 var hasCreator = _entityManager.TryGetComponentData<EntityCreator>(entity, out var entityCreator);
                 var hasOwner = _entityManager.TryGetComponentData<EntityOwner>(entity, out var entityOwner);
-                //_entityManager.TryGetComponentData<PrefabGUID>(entity, out var entityguid);
-                //_log.LogDebug($"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[entityguid]} has creatorComponent");
+                _entityManager.TryGetComponentData<PrefabGUID>(entity, out var entityguid);
+                _log.LogDebug(
+                    $"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[entityguid]} has creatorComponent");
                 if (!hasCreator || !hasOwner)
                 {
                     return;
@@ -168,8 +171,9 @@ namespace PotionsHaveContainers.Systems
                 var entityCreatorEntity = entityCreator.Creator._Entity;
                 var hasAbilityOwner =
                     _entityManager.TryGetComponentData<AbilityOwner>(entityCreatorEntity, out var abilityOwner);
-                //_entityManager.TryGetComponentData<PrefabGUID>(entityCreatorEntity, out var entitycreatorguid);
-                //_log.LogDebug($"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[entitycreatorguid]} has abilityownerComponent");
+                _entityManager.TryGetComponentData<PrefabGUID>(entityCreatorEntity, out var entitycreatorguid);
+                _log.LogDebug(
+                    $"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[entitycreatorguid]} has abilityownerComponent");
                 if (!hasAbilityOwner)
                 {
                     return;
@@ -178,10 +182,11 @@ namespace PotionsHaveContainers.Systems
                 var abilityGroupEntity = abilityOwner.AbilityGroup._Entity;
                 var hasPrefabGuid =
                     _entityManager.TryGetComponentData<PrefabGUID>(abilityGroupEntity, out var abilityGroupPrefabGuid);
-                //_log.LogDebug($"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupPrefabGuid]} has abilityownerComponent");
+                _log.LogDebug(
+                    $"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupPrefabGuid]} has abilityownerComponent");
                 if (!hasPrefabGuid)
                 {
-                    //_log.LogDebug($"Consumable does not have a PrefabGUID! {abilityGroupEntity.ToString()}");
+                    _log.LogDebug($"Consumable does not have a PrefabGUID! {abilityGroupEntity.ToString()}");
                     return;
                 }
 
@@ -190,122 +195,163 @@ namespace PotionsHaveContainers.Systems
                     CreateConsumableContainers();
                 }
 
-                //_log.LogDebug($"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupPrefabGuid]} has return data (is it in the dictionary?)");
+                _log.LogDebug(
+                    $"testing if {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupPrefabGuid]} has return data (is it in the dictionary?)");
                 var hasReturnData = ConsumableToEmptyContainer.TryGetValue(abilityGroupPrefabGuid, out var returnData);
                 if (!hasReturnData)
                 {
-                    //_log.LogDebug($"Consumable not found in dictionary! {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupPrefabGuid]}");
+                    _log.LogDebug(
+                        $"Consumable not found in dictionary! {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGroupPrefabGuid]}");
                     return;
                 }
-                
+
                 Helper.AddItemToInventory(entityOwner.Owner, returnData.itemGUID, returnData.stackCount);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                _log.LogError(e.Message);
+                _log.LogError(e.StackTrace);
             }
         }
 
         private static void CreateConsumableContainers()
         {
-            ConsumableToEmptyContainer.Clear();
+            
+                _log.LogDebug("before clearing ConsumableToEmptyContainer");
+                ConsumableToEmptyContainer.Clear();
 
-            var gameDataSystem = Server.GetExistingSystemManaged<ServerScriptMapper>()._GameDataSystem;
-            var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
+                _log.LogDebug("before getting gameDataSystem and prefabCollectionSystem");
+                var gameDataSystem = Server.GetExistingSystemManaged<ServerScriptMapper>()._GameDataSystem;
+                var prefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
 
-            var duplicateConsumables = new List<PrefabGUID>();
 
-            foreach (var recipeKvp in gameDataSystem.RecipeHashLookupMap)
-            {
-                var recipeEntity = recipeKvp.Value.Entity;
-                var hasRecipeRequirementBuffer =
-                    _entityManager.TryGetBuffer<RecipeRequirementBuffer>(recipeEntity, out var requirementBuffer);
-                var hasRecipeOutputBuffer =
-                    _entityManager.TryGetBuffer<RecipeOutputBuffer>(recipeEntity, out var outputBuffer);
-                if (!hasRecipeRequirementBuffer || !hasRecipeOutputBuffer)
+                _log.LogDebug("before making duplicateConsumables");
+                var duplicateConsumables = new List<PrefabGUID>();
+                foreach (var recipeKvp in gameDataSystem.RecipeHashLookupMap)
                 {
-                    continue;
-                }
-
-                // -- Find the returned item
-                PrefabGUID? returnItemGuid = null;
-                int returnItemStackCount = 0;
-                foreach (var requirement in requirementBuffer)
-                {
-                    //_log.LogDebug($"Item required for recipe guid: {prefabCollectionSystem.PrefabGuidToNameDictionary[requirement.Guid]} amount: {requirement.Amount}");
-                    if (RecipeItemToReturnedItemMapping.TryGetValue(requirement.Guid, out var prefabGUID))
+                    try
                     {
-                        //_log.LogDebug($"Found a returnable item: {prefabCollectionSystem.PrefabGuidToNameDictionary[requirement.Guid]}");
-                        returnItemGuid = prefabGUID;
-                        returnItemStackCount = requirement.Amount;
-                        //_log.LogDebug($"returnItemGuid: {prefabCollectionSystem.PrefabGuidToNameDictionary[prefabGUID]} Amount of the item to return: {returnItemStackCount}");
-                        break;
+                        _log.LogDebug(
+                            $"Recipe: {prefabCollectionSystem.PrefabGuidToNameDictionary[recipeKvp.Key]}");
+
+                        var recipeEntity = recipeKvp.Value.Entity;
+                        _log.LogDebug("before getting recipeRequirementBuffer and recipeOutputBuffer");
+                        var hasRecipeRequirementBuffer =
+                            _entityManager.TryGetBuffer<RecipeRequirementBuffer>(recipeEntity,
+                                out var requirementBuffer);
+
+                        var hasRecipeOutputBuffer =
+                            _entityManager.TryGetBuffer<RecipeOutputBuffer>(recipeEntity, out var outputBuffer);
+                        if (!hasRecipeRequirementBuffer || !hasRecipeOutputBuffer)
+                        {
+                            _log.LogDebug("doesnt have recipeRequirementBuffer or recipeOutputBuffer");
+                            continue;
+                        }
+
+
+                        _log.LogDebug("requirementBuffer" + requirementBuffer + " outputBuffer" + outputBuffer);
+
+
+                        // -- Find the returned item
+                        PrefabGUID? returnItemGuid = null;
+                        int returnItemStackCount = 0;
+                        _log.LogDebug("before requirementBuffer.foreach");
+                        foreach (var requirement in requirementBuffer)
+                        {
+                            _log.LogDebug(
+                                $"Item required for recipe guid: {prefabCollectionSystem.PrefabGuidToNameDictionary[requirement.Guid]} amount: {requirement.Amount}");
+                            if (RecipeItemToReturnedItemMapping.TryGetValue(requirement.Guid, out var prefabGUID))
+                            {
+                                _log.LogDebug(
+                                    $"Found a returnable item: {prefabCollectionSystem.PrefabGuidToNameDictionary[requirement.Guid]}");
+                                returnItemGuid = prefabGUID;
+                                returnItemStackCount = requirement.Amount;
+                                _log.LogDebug(
+                                    $"returnItemGuid: {prefabCollectionSystem.PrefabGuidToNameDictionary[prefabGUID]} Amount of the item to return: {returnItemStackCount}");
+                                break;
+                            }
+                        }
+
+                        // -- Check if we've found a returnable item
+                        if (!returnItemGuid.HasValue)
+                        {
+                            _log.LogDebug("No returnable item found for this recipe");
+                            continue;
+                        }
+
+
+                        // -- Find the buff that belongs to this item
+                        _log.LogDebug("before outputBuffer.foreach");
+                        foreach (var output in outputBuffer)
+                        {
+                            var outputEntity = prefabCollectionSystem.PrefabLookupMap[output.Guid];
+                            _log.LogDebug("------------------------------------------------------");
+                            _log.LogDebug(
+                                $"Output entity: {prefabCollectionSystem.PrefabGuidToNameDictionary[output.Guid]}");
+
+
+                            var hasCastAbilityOnConsume =
+                                _entityManager.TryGetComponentData<CastAbilityOnConsume>(outputEntity,
+                                    out var castAbilityOnConsume);
+                            if (!hasCastAbilityOnConsume)
+                            {
+                                _log.LogDebug(
+                                    $"Couldnt match cast ability on consume for {prefabCollectionSystem.PrefabGuidToNameDictionary[output.Guid]}");
+                                continue;
+                            }
+
+
+                            var abilityGuid = castAbilityOnConsume.AbilityGuid;
+                            _log.LogDebug(
+                                $"Found ability guid: {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGuid]}");
+                            _log.LogDebug("------------------------------------------------------");
+                            if (ConsumableToEmptyContainer.ContainsKey(abilityGuid))
+                            {
+                                _log.LogDebug(
+                                    $"[Found duplicate consumable {prefabCollectionSystem._PrefabGuidToNameDictionary[abilityGuid]} and removed it.]");
+                                duplicateConsumables.Add(abilityGuid);
+                            }
+
+                            ConsumableToEmptyContainer[abilityGuid] = (returnItemGuid.Value, returnItemStackCount);
+
+
+                            _log.LogDebug(
+                                $"[Added consumable {prefabCollectionSystem._PrefabGuidToNameDictionary[abilityGuid]} -> {prefabCollectionSystem._PrefabGuidToNameDictionary[returnItemGuid.Value]} Count {returnItemStackCount} to dictionary ]");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error and continue with the next iteration of the loop
+                        _log.LogDebug($"Error accessing CraftDuration property: {ex.Message} this is probably due to recipekvp not being a valid recipe entity. This is not an error to worry about!");
+                        return;
                     }
                 }
 
-                // -- Check if we've found a returnable item
-                if (!returnItemGuid.HasValue)
+                _log.LogDebug("before adding water and blood consumables to dictionary");
+                // Do the blood potions, water potions and garlic cure(idk if this is actually ingame) manually
+                if (Settings.GIVE_BOTTLES.Value)
                 {
-                    continue;
+                    WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(1743540461)] =
+                        (new PrefabGUID(-437611596), 1);
+
+                    WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(974235336)] =
+                        (new PrefabGUID(-437611596), 1);
+                }
+                else
+                {
+                    WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(1743540461)] =
+                        (new PrefabGUID(-810738866), 1);
+
+                    WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(974235336)] =
+                        (new PrefabGUID(-437611596), 1);
                 }
 
-                // -- Find the buff that belongs to this item
-                foreach (var output in outputBuffer)
-                {
-                    var outputEntity = prefabCollectionSystem.PrefabLookupMap[output.Guid];
-                    //_log.LogDebug("------------------------------------------------------");
-                    //_log.LogDebug($"Output entity: {prefabCollectionSystem.PrefabGuidToNameDictionary[output.Guid]}");
-
-
-                    var hasCastAbilityOnConsume =
-                        _entityManager.TryGetComponentData<CastAbilityOnConsume>(outputEntity,
-                            out var castAbilityOnConsume);
-                    if (!hasCastAbilityOnConsume)
-                    {
-                        //_log.LogDebug($"Couldnt match cast ability on consume for {prefabCollectionSystem.PrefabGuidToNameDictionary[output.Guid]}");
-                        continue;
-                    }
-
-
-                    var abilityGuid = castAbilityOnConsume.AbilityGuid;
-                    //_log.LogDebug($"Found ability guid: {prefabCollectionSystem.PrefabGuidToNameDictionary[abilityGuid]}");
-                    //_log.LogDebug("------------------------------------------------------");
-                    if (ConsumableToEmptyContainer.ContainsKey(abilityGuid))
-                    {
-                        //_log.LogDebug($"[Found duplicate consumable {prefabCollectionSystem._PrefabGuidToNameDictionary[abilityGuid]} and removed it.]");
-                        duplicateConsumables.Add(abilityGuid);
-                    }
-
-                    ConsumableToEmptyContainer[abilityGuid] = (returnItemGuid.Value, returnItemStackCount);
-
-
-                    //_log.LogDebug($"[Added consumable {prefabCollectionSystem._PrefabGuidToNameDictionary[abilityGuid]} -> {prefabCollectionSystem._PrefabGuidToNameDictionary[returnItemGuid.Value]} Count {returnItemStackCount} to dictionary ]");
-                }
-            }
-            // Do the blood potions, water potions and garlic cure(idk if this is actually ingame) manually
-            if (Settings.GIVE_BOTTLES.Value)
-            {
-                
-                //WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(1743540461)] =
-                //(new PrefabGUID(-437611596), 1);
-                WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(1743540461)] =
-                    (new PrefabGUID(-437611596), 1);
-
-                WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(974235336)] =
-                    (new PrefabGUID(-437611596), 1);
-            }
-            else
-            {
-                WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(1743540461)] =
-                    (new PrefabGUID(-810738866), 1);
-
-                WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(974235336)] =
-                    (new PrefabGUID(-437611596), 1);
-            }
-
-            WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(-194817723)] =
-                (new PrefabGUID(1743540461), 1);
-            duplicateConsumables.ForEach(x => ConsumableToEmptyContainer.Remove(x));
+                _log.LogDebug("before adding water and blood consumables to dictionary");
+                WaterOrBloodConsumableToEmptyContainer[new PrefabGUID(-194817723)] =
+                    (new PrefabGUID(1743540461), 1);
+                _log.LogDebug("before duplicateConsumables.foreach");
+                duplicateConsumables.ForEach(x => ConsumableToEmptyContainer.Remove(x));
+                _log.LogDebug("after duplicateConsumables.foreach");
         }
 
         public static void Deinitialize()
