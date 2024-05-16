@@ -1,3 +1,6 @@
+# This mod is no longer required as it has been added by the game itself in 1.0 (I just didn't realize it)
+
+
 # 🫗 Potions Have Containers - Gloomrot Update
 forked from [phillipsOG/C2ierce](https://github.com/phillipsOG/PotionsHaveContainers) and updated to Gloomrot , now also updated to 1.0.
 
